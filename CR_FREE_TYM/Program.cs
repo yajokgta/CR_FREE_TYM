@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using log4net;
+using log4net.Config;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -6,16 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using static CR_FREE_TYM.AdvanceFormExt;
 
 namespace CR_FREE_TYM
 {
     public class Program
     {
-        private static void Main(string[] args)
+        private static readonly ILog log = LogManager.GetLogger(typeof(Program));
+        public static void Main(string[] args)
         {
+            XmlConfigurator.Configure();
             var dbContext = new ISODataContext();
 
-            var memos = dbContext.TRNMemos.Where(x => x.TemplateId == 0 && x.ModifiedDate >= DateTime.Now.AddMinutes(-5) && x.StatusName == "Completed").ToList();
+            var memos = dbContext.TRNMemos.Where(x => x.TemplateId == 167 && x.ModifiedDate >= DateTime.Now.AddMinutes(-5) && x.StatusName == "Completed").ToList();
 
             foreach (var memo in memos)
             {
@@ -30,17 +35,22 @@ namespace CR_FREE_TYM
                         documentCodes.Add(documentNumber);
                     }
                 }
-
+                log.Info("documentCodes : " + string.Join(",", documentCodes));
                 var memoIds = dbContext.View_ReportRDFTypes.Where(x => documentCodes.Contains(x.รหัสเอกสาร)).Select(s => s.Memo_MemoId).ToList();
                 foreach (var memoId in memoIds) 
                 {
                     var memoModel = dbContext.TRNMemos.FirstOrDefault(x => x.MemoId == memoId);
                     if (memoModel != null) 
                     {
+                        log.Info("MEMOID : " + memoId);
+
                         var advSrc = AdvanceFormExt.ToList(memoModel.MAdvancveForm);
                         var dateString = advSrc.FirstOrDefault(x => x.label == "วันที่ต้องทบทวนเอกสาร")?.value;
+                        log.Info("DATE DEST : " + dateString);
                         var dateTime = ConvertDateTime(dateString).AddYears(+1);
+                        log.Info("DATE SRC : " + dateTime.ToString("dd MMM yyyy"));
                         var madvanceForm = AdvanceFormExt.ReplaceDataControl(memoModel.MAdvancveForm, dateTime.ToString("dd MMM yyyy"), "วันที่ต้องทบทวนเอกสาร");
+                        //log.Info("ADV : " + madvanceForm);
                         memoModel.MAdvancveForm = madvanceForm;
                         dbContext.SubmitChanges();
                     }
