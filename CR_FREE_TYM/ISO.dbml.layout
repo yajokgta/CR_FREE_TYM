@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 21.125" name="ISO">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 16.875" name="ISO">
   <DataContextMoniker Name="/ISODataContext" />
   <nestedChildShapes>
-    <classShape Id="7049a5b1-6e0e-427b-a016-5cd5f83b059d" absoluteBounds="2.75, 6.25, 2, 14.6550927734375">
+    <classShape Id="7049a5b1-6e0e-427b-a016-5cd5f83b059d" absoluteBounds="4.5, 2, 2, 14.6550927734375">
       <DataClassMoniker Name="/ISODataContext/TRNMemo" />
       <nestedChildShapes>
-        <elementListCompartment Id="33085504-0303-4187-a257-0cd7169df51a" absoluteBounds="2.765, 6.71, 1.9700000000000002, 14.0950927734375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="33085504-0303-4187-a257-0cd7169df51a" absoluteBounds="4.5150000000000006, 2.46, 1.9700000000000002, 14.0950927734375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="22b99145-6731-4fd7-beeb-42c67e3001bf" absoluteBounds="6.625, 4.625, 2, 4.2708154296875">
+    <classShape Id="22b99145-6731-4fd7-beeb-42c67e3001bf" absoluteBounds="6.625, 2, 2, 4.2708154296875">
       <DataClassMoniker Name="/ISODataContext/TRNMemoForm" />
       <nestedChildShapes>
-        <elementListCompartment Id="696b3854-91ef-4c52-8cd6-7ddd21be8f55" absoluteBounds="6.6400000000000006, 5.085, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="696b3854-91ef-4c52-8cd6-7ddd21be8f55" absoluteBounds="6.6400000000000006, 2.46, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
     <classShape Id="dc099978-60f4-408b-9bf5-68d053c4fb27" absoluteBounds="2.375, 2, 2, 2.5401025390625">
