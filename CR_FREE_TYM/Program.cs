@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 
 namespace CR_FREE_TYM
@@ -49,10 +51,33 @@ namespace CR_FREE_TYM
                         //log.Info("ADV : " + madvanceForm);
                         memoModel.MAdvancveForm = madvanceForm;
                         dbContext.SubmitChanges();
+                        InsertTRNForm(memoId, dbContext.Connection.ConnectionString);
                     }
                 }
             }
         }
+
+        public static bool InsertTRNForm(int memoid, string con)
+        {
+            bool result = false;
+            using (SqlConnection sqlCon = new SqlConnection(con))
+            {
+                sqlCon.Open();
+                SqlCommand sql_cmnd = new SqlCommand("SP_InsertTRNFormByMemoID", sqlCon);
+                sql_cmnd.CommandType = CommandType.StoredProcedure;
+                sql_cmnd.Parameters.AddWithValue("@MemoID", SqlDbType.Int).Value = memoid;
+                using (SqlDataReader oReader = sql_cmnd.ExecuteReader())
+                {
+                    while (oReader.Read())
+                    {
+                        result = (bool)oReader["result"];
+                    }
+                }
+                sqlCon.Close();
+            }
+            return result;
+        }
+
         public static DateTime ConvertDateTime(string targetDateTime)
         {
             DateTime dt = new DateTime();
